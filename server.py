@@ -18,11 +18,11 @@ def get_response_data(query_name):
         return None
     else:
         logging.debug('[+] Pulling data for payload number '+str(itemNumber)+'/'+str(len(dataItems)-1))
-    return re.sub('\s+',' ',dataItems[itemNumber])
+    return re.sub('\s+',' ', dataItems[itemNumber].decode('utf-8'))
 
 def chunks(l, n):
     '''Split string l into n sized chunks'''
-    for i in xrange(0, len(l), n):
+    for i in range(0, len(l), n):
         yield l[i:i+n]
 
 def handle_query(msg,address):
@@ -52,7 +52,7 @@ def requestHandler(address, message):
     serving_ids = []
 
     #Don't try to respond to the same request twice somehow - track requests
-    message_id = ord(message[0]) * 256 + ord(message[1])
+    message_id = ord(str(message[0])) * 256 + ord(str(message[1]))
     logging.debug('[+] Received message ID = ' + str(message_id))
     if message_id in serving_ids:
         # This request is already being served

